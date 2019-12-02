@@ -1,3 +1,6 @@
 [submodule "Adafruit_nRF52_Bootloader"]
 	path = Adafruit_nRF52_Bootloader
 	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
+[submodule "Adafruit_nRF52_Arduino"]
+	path = Adafruit_nRF52_Arduino
+	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Arduino.git
