@@ -1,6 +1,6 @@
-[submodule "Adafruit_nRF52_Bootloader"]
-	path = Adafruit_nRF52_Bootloader
+[submodule "nRF52_Arduino/hardware/SmartKey/nRF52/Adafruit_nRF52_Bootloader"]
+	path = nRF52_Arduino/hardware/SmartKey/nRF52/Adafruit_nRF52_Bootloader
 	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
-[submodule "Adafruit_nRF52_Arduino"]
-	path = Adafruit_nRF52_Arduino
+[submodule "nRF52_Arduino/hardware/SmartKey/nRF52/Adafruit_nRF52_Arduino"]
+	path = nRF52_Arduino/hardware/SmartKey/nRF52/Adafruit_nRF52_Arduino
 	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Arduino.git

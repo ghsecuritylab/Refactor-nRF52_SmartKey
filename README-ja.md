@@ -22,6 +22,12 @@ nRF52840を使用して作成した、スマートキー。
 
 2. ArduinoIDEをインストール
 
+バージョン: [ArduinoIDE 1.8.10](https://www.arduino.cc/en/main/software)
+
+3. Adafruit Feather nRF52840 Expressを使用。
+
+nRF52840が搭載されているAdafruit社製のボードならば、ピン配置を適宜変更すれば、ソースコードをそのまま利用可能。
+
 
 ## インストール
 
