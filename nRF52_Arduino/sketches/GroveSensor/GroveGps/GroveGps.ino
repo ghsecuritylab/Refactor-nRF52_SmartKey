@@ -2,10 +2,8 @@
  * http://wiki.seeedstudio.com/Grove-GPS/
  * This sketch enables to get GPS data.
  */
-#include <NectisCellular.h>
 #include <NectisGroveSensorUart.h>
 
-NectisCellular Nectis;
 NectisGroveSensorUart GroveUart;
 
 
@@ -14,17 +12,6 @@ void setup() {
   delay(4000);
   Serial.println("");
   Serial.println("--- START ---------------------------------------------------");
-
-  Serial.println("### I/O Initialize.");
-  Nectis.Init();
-  delay(100);
-  Serial.println("### Power supply cellular ON.");
-  Nectis.PowerSupplyCellular(true);
-  delay(100);
-
-  Serial.println("### Power supply ON.");
-  // Make sure that the MODULE_PWR_PIN is set to HIGH.
-  Nectis.PowerSupplyGrove(true);
 
   Serial.println("### Setup completed.");
 }

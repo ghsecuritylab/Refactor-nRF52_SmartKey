@@ -11,10 +11,6 @@
 #include "MPU9250.h"
 #include "BMP280.h"
 
-#include <NectisCellular.h>
-
-NectisCellular Nectis;
-
 
 // class default I2C address is 0x68
 // specific I2C addresses may be passed as a parameter here
@@ -63,26 +59,10 @@ float altitude;
 BMP280 bmp280;
 
 void setup() {
-  delay(4000);
-
-  // initialize serial communication
-  // (38400 chosen because it works as well at 8MHz as it does at 16MHz, but
-  // it's really up to you depending on your project)
   Serial.begin(115200);
+  delay(4000);
   Serial.println("");
   Serial.println("--- START ---------------------------------------------------");
-
-  Serial.println("### I/O Initialize.");
-  Nectis.Init();
-  delay(100);
-  Serial.println("### Power supply cellular ON.");
-  Nectis.PowerSupplyCellular(true);
-  delay(100);
-  Serial.println("### Power supply ON.");
-  //  Make sure that the MODULE_PWR_PIN is set to HIGH.
-  Nectis.PowerSupplyGrove(true);
-  delay(100);
-
 
   // join I2C bus (I2Cdev library doesn't do this automatically)
   Wire.begin();
@@ -100,7 +80,8 @@ void setup() {
   Serial.println("     ");
 
   //  Mxyz_init_calibrated ();
-
+  
+  Serial.println("### Setup completed.");
 }
 
 void loop() {

@@ -1,12 +1,8 @@
-#include <NectisCellular.h>
-
-#define LIGHT_PIN       (GROVE_ANALOG_1_1)
-#define INTERVAL        (100)
+#define PIN_GROVE_LED       (GROVE_ANALOG_1_1)
+#define INTERVAL            (100)
 
 const int thresholdvalue=10;         //The threshold for which the LED should turn on.
 float Rsensor; //Resistance of Sensor in K
-
-NectisCellular Nectis;
 
 
 void setup() {
@@ -15,22 +11,11 @@ void setup() {
   Serial.println("");
   Serial.println("--- START ---------------------------------------------------");
 
-  Serial.println("### I/O Initialize.");
-  Nectis.Init();
-  delay(100);
-  Serial.println("### Power supply cellular ON.");
-  Nectis.PowerSupplyCellular(true);
-  delay(100);
-  Serial.println("### Power supply ON.");
-//  Make sure that the MODULE_PWR_PIN is set to HIGH.
-  Nectis.PowerSupplyGrove(true);
-  delay(100);
-
-  pinMode(LIGHT_PIN,OUTPUT);            //Set the LED on Digital 12 as an OUTPUT
+  pinMode(PIN_GROVE_LED,OUTPUT);            //Set the LED on Digital 12 as an OUTPUT
 }
 
 void loop() {
-  int sensorValue = analogRead(LIGHT_PIN);
+  int sensorValue = analogRead(PIN_GROVE_LED);
 //    Rsensor=(float)(1023-sensorValue)*10/sensorValue;
 //    if(Rsensor>thresholdvalue) {
 //        digitalWrite(ledPin,HIGH);

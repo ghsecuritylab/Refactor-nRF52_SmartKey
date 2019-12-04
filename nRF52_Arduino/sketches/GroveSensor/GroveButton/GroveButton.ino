@@ -4,12 +4,9 @@
  * When you press the button, you can find it on the serial monitor of ArduinoIDE.
  */
 
-#include <NectisCellular.h>
-
-#define BUTTON_PIN  (GROVE_ANALOG_1_1)
+#define PIN_GROVE_BUTTON  (GROVE_ANALOG_1_1)
 #define INTERVAL    (100)
 
-NectisCellular Nectis;
 
 void setup() {
   Serial.begin(115200);
@@ -17,24 +14,13 @@ void setup() {
   Serial.println("");
   Serial.println("--- START ---------------------------------------------------");
 
-  Serial.println("### I/O Initialize.");
-  Nectis.Init();
-  delay(100);
-  Serial.println("### Power supply cellular ON.");
-  Nectis.PowerSupplyCellular(true);
-  delay(100);
-  Serial.println("### Power supply ON.");
-  //  Make sure that the MODULE_PWR_PIN is set to HIGH.
-  Nectis.PowerSupplyGrove(true);
-  delay(100);
-
-  pinMode(BUTTON_PIN, INPUT);
+  pinMode(PIN_GROVE_BUTTON, INPUT);
 
   Serial.println("### Setup completed.");
 }
 
 void loop() {
-  int buttonState = digitalRead(BUTTON_PIN);
+  int buttonState = digitalRead(PIN_GROVE_BUTTON);
   Serial.print(buttonState ? '*' : '.');
   delay(INTERVAL);
 }
