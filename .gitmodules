@@ -4,3 +4,6 @@
 [submodule "nRF52_Bootloader"]
 	path = nRF52_Bootloader
 	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
+[submodule "nRF52_Arduino/libraries/Adafruit_SPIFlash"]
+	path = nRF52_Arduino/libraries/Adafruit_SPIFlash
+	url = git@github.com:adafruit/Adafruit_SPIFlash.git
