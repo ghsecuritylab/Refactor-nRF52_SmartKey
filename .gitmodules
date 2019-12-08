@@ -7,3 +7,6 @@
 [submodule "nRF52_Arduino/libraries/Adafruit_SPIFlash"]
 	path = nRF52_Arduino/libraries/Adafruit_SPIFlash
 	url = git@github.com:adafruit/Adafruit_SPIFlash.git
+[submodule "nRF52_Arduino/libraries/Adafruit_NeoPixel"]
+	path = nRF52_Arduino/libraries/Adafruit_NeoPixel
+	url = git@github.com:adafruit/Adafruit_NeoPixel.git
