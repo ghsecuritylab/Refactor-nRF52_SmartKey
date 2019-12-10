@@ -10,3 +10,6 @@
 [submodule "nRF52_Arduino/libraries/Adafruit_NeoPixel"]
 	path = nRF52_Arduino/libraries/Adafruit_NeoPixel
 	url = git@github.com:adafruit/Adafruit_NeoPixel.git
+[submodule "nRF5_SDK_15.3.0_59ac345/external/micro-ecc/micro-ecc"]
+	path = nRF5_SDK_15.3.0_59ac345/external/micro-ecc/micro-ecc
+	url = git@github.com:kmackay/micro-ecc.git
