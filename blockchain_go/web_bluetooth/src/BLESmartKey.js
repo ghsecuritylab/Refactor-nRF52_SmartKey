@@ -52,6 +52,7 @@ BLESmartKey.prototype.scan = function(uuid) {
 
 BLESmartKey.prototype.requestDevice = function(uuid) {
     console.log('Execute : requestDevice');
+    console.log('UUID: ' + this.hashedUuid[uuid].serviceUuid);
 
     return navigator.bluetooth.requestDevice({
         acceptAllDevices: true,
@@ -76,7 +77,11 @@ BLESmartKey.prototype.connectGATT = function(uuid) {
     }
     this.hashedUuidLastConnected = uuid;
 
+    console.log("serviceUuid: " + this.hashedUuid[uuid].serviceUuid);
+    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
+
     console.log('Execute : connect');
+
     return this.bluetoothDevice.gatt.connect()
         .then(server => {
             console.log('Execute : getPrimaryService');
@@ -88,6 +93,7 @@ BLESmartKey.prototype.connectGATT = function(uuid) {
         })
         .then(characteristic => {
             this.dataCharacteristic = characteristic;
+            console.log(characteristic);
             // this.dataCharacteristic.addEventListener('characteristicvaluechanged', this.dataChanged(this, uuid));
             this.onConnectGATT(uuid);
         })
