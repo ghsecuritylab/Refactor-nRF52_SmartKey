@@ -13,6 +13,8 @@ Web Bluetooth API
 https://webbluetoothcg.github.io/web-bluetooth/
 */
 
+// ToDO: Vue.js を調べて、使ってみる
+
 let BLESmartKey = function() {
     this.bluetoothDevice = null;
     this.dataCharacteristic = null;
@@ -55,7 +57,10 @@ BLESmartKey.prototype.requestDevice = function(uuid) {
     console.log('UUID: ' + this.hashedUuid[uuid].serviceUuid);
 
     return navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
+        acceptAllDevices: false,
+        filters: [{
+           name: ["SmartKey"]
+        }],
         optionalServices: [this.hashedUuid[uuid].serviceUuid]})
         .then(device => {
             this.bluetoothDevice = device;
