@@ -3,6 +3,7 @@
 Copyright 2017 Analog Devices, Inc & JellyWare Inc.
 Copyright 2019 Naoto Fujihiro
 -->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,54 +16,64 @@ Copyright 2019 Naoto Fujihiro
 <div class="smart_key">
     <h1>Smart Key</h1>
 
-    <div id="device_info"></div>
-    <button id="device_info_button">Device Info</button>
+    <button id="connect_button">Connect</button>
+    <button id="reset_button" class="button">Reset</button>
+
+    <div id="model_number"></div>
+
+    <div id="manufacturer"></div>
 
     <div id="battery"></div>
-    <button id="battery_button">Battery</button>
 
     <p>Block</p>
     <textarea id="block" rows="2" cols="100"></textarea>
-    <button id="block_button">Block</button>
+    <br>
+    <button id="read_block_button">READ</button>
 
     <p>Public Key</p>
     <textarea id="public_key" rows="2" cols="100"></textarea>
-    <button id="public_key_button">Public Key</button>
+    <br>
+    <button id="read_public_key_button">READ</button>
 
     <p>Signature</p>
     <textarea id="signature" rows="2" cols="100"></textarea>
-    <button id="signature_button">Signature</button>
+    <br>
+    <button id="read_signature_button">READ</button>
 
     <p>Transactions</p>
     <textarea id="transactions" rows="2" cols="100"></textarea>
-    <button id="transactions_button">Transactions</button>
-
-    <h1>BLE</h1>
-    <button id="readData" class="button">Read</button>
-    <button id="writeData" class="button">Write</button>
-    <button id="reset" class="button">Reset</button>
+    <br>
+    <button id="read_transactions_button">READ</button>
 </div>
 
 <script>
     let ble = new BLESmartKey();
 
     // ボタンを押下した際のイベント登録
-    document.getElementById('device_info_button').addEventListener('click', function() {
-        ble.read('DeviceInfo').then( (value) => {
-            const decoder = new TextDecoder('utf-8');
-            const value_str = decoder.decode(value);
-            console.log(value_str);
-            document.getElementById('device_info').innerHTML = value_str;
-        });
-    });
-    document.getElementById('battery_button').addEventListener('click', function() {
-        ble.read('Battery').then( (value) => {
-            console.log(value.getUint8(0));
-            document.getElementById('battery').innerHTML = value.getUint8(0);
-        });
+    // document.getElementById('connect_button').addEventListener('click', function() {
+    //     ble.read('ModelNumber').then( (value) => {
+    //         const decoder = new TextDecoder('utf-8');
+    //         const value_str = decoder.decode(value);
+    //         console.log(value_str);
+    //         document.getElementById('model_number').innerHTML = value_str;
+    //     }).then(
+    //         ble.read('Manufacturer').then( (value) => {
+    //             const decoder = new TextDecoder('utf-8');
+    //             const value_str = decoder.decode(value);
+    //             console.log(value_str);
+    //             document.getElementById('manufacturer').innerHTML = value_str;
+    //     })).then(
+    //         ble.read('Battery').then( (value) => {
+    //             console.log(value.getUint8(0));
+    //             document.getElementById('battery').innerHTML = value.getUint8(0);
+    //     }));
+    // });
+
+    document.getElementById('connect_button').addEventListener('click', function() {
+        ble.scan('ModelNumber')
     });
 
-    document.getElementById('block_button').addEventListener('click', function() {
+    document.getElementById('read_block_button').addEventListener('click', function() {
         ble.read('Block').then( (value) => {
             const decoder = new TextDecoder('utf-8');
             const value_str = decoder.decode(value);
@@ -71,7 +82,7 @@ Copyright 2019 Naoto Fujihiro
         });
     });
 
-    document.getElementById('public_key_button').addEventListener('click', function() {
+    document.getElementById('read_public_key_button').addEventListener('click', function() {
         ble.read('PublicKey').then( (value) => {
             const decoder = new TextDecoder('utf-8');
             const value_str = decoder.decode(value);
@@ -80,7 +91,7 @@ Copyright 2019 Naoto Fujihiro
         });
     });
 
-    document.getElementById('signature_button').addEventListener('click', function() {
+    document.getElementById('read_signature_button').addEventListener('click', function() {
         ble.read('Signature').then( (value) => {
             const decoder = new TextDecoder('utf-8');
             const value_str = decoder.decode(value);
@@ -89,7 +100,7 @@ Copyright 2019 Naoto Fujihiro
         });
     });
 
-    document.getElementById('transactions_button').addEventListener('click', function() {
+    document.getElementById('read_transactions_button').addEventListener('click', function() {
         ble.read('Transactions').then( (value) => {
             const decoder = new TextDecoder('utf-8');
             const value_str = decoder.decode(value);
@@ -98,13 +109,14 @@ Copyright 2019 Naoto Fujihiro
         });
     });
 
-    document.getElementById('reset').addEventListener('click', function() {
+    document.getElementById('reset_button').addEventListener('click', function() {
         ble.reset()
     });
 
     // ロード時の処理
     window.onload = function() {
-        document.getElementById('device_info').innerHTML = "No Device";
+        document.getElementById('model_number').innerHTML = "No Device";
+        document.getElementById('manufacturer').innerHTML = "No Manufacturer";
         document.getElementById('battery').innerHTML = "0";
 
         // Smart Key Service UUID       : 77 9F 6C D0 - FF 5B - 46 0A - A0 1D - 23 8A 2A DE C0 F9
@@ -112,7 +124,8 @@ Copyright 2019 Naoto Fujihiro
         // Smart Key PublicKey UUID     : 77 9F 6C D2 - FF 5B - 46 0A - A0 1D - 23 8A 2A DE C0 F9
         // Smart Key Signature UUID     : 77 9F 6C D3 - FF 5B - 46 0A - A0 1D - 23 8A 2A DE C0 F9
         // Smart Key Transactions UUID  : 77 9F 6C D4 - FF 5B - 46 0A - A0 1D - 23 8A 2A DE C0 F9
-        ble.setUuid("DeviceInfo", "0000180a-0000-1000-8000-00805f9b34fb", "00002a24-0000-1000-8000-00805f9b34fb");
+        ble.setUuid("ModelNumber", "0000180a-0000-1000-8000-00805f9b34fb", "00002a24-0000-1000-8000-00805f9b34fb");
+        ble.setUuid("Manufacturer", "0000180a-0000-1000-8000-00805f9b34fb", "00002a29-0000-1000-8000-00805f9b34fb");
         ble.setUuid("Battery", "0000180f-0000-1000-8000-00805f9b34fb", "00002a19-0000-1000-8000-00805f9b34fb");
         ble.setUuid("Block", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd1-ff5b-460a-a01d-238a2adec0f9");
         ble.setUuid("PublicKey", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd2-ff5b-460a-a01d-238a2adec0f9");
@@ -122,8 +135,22 @@ Copyright 2019 Naoto Fujihiro
 
     // Scan後の処理
     ble.onScan = function(deviceName) {
-        console.info("Device: " + deviceName);
-        document.getElementById('device_info').innerHTML = deviceName;
+        ble.read('ModelNumber').then( (value) => {
+            const decoder = new TextDecoder('utf-8');
+            const value_str = decoder.decode(value);
+            console.log(value_str);
+            document.getElementById('model_number').innerHTML = value_str;
+        });
+        ble.read('Manufacturer').then( (value) => {
+            const decoder = new TextDecoder('utf-8');
+            const value_str = decoder.decode(value);
+            console.log(value_str);
+            document.getElementById('manufacturer').innerHTML = value_str;
+        });
+        ble.read('Battery').then( (value) => {
+            console.log(value.getUint8(0));
+            document.getElementById('battery').innerHTML = value.getUint8(0);
+        });
     };
 
     // ble.onRead = function(data, uuid) {
@@ -133,7 +160,8 @@ Copyright 2019 Naoto Fujihiro
     // };
 
     ble.onReset = function() {
-        document.getElementById('device_info').innerHTML = "No Device";
+        document.getElementById('model_number').innerHTML = "No Device";
+        document.getElementById('manufacturer').innerHTML = "No Manufacturer";
         document.getElementById('battery').innerHTML = "0";
         document.getElementById('block').innerHTML = "";
         document.getElementById('public_key').innerHTML = "";
