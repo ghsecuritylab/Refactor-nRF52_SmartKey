@@ -40,8 +40,6 @@ BLESmartKey.prototype.setUuid = function(name, serviceUuid, characteristicUuid) 
         'serviceUuid': serviceUuid,
         'characteristicUuid': characteristicUuid
     };
-
-    console.log(this.hashedUuid)
 };
 
 BLESmartKey.prototype.scan = function(uuid) {
@@ -54,7 +52,6 @@ BLESmartKey.prototype.scan = function(uuid) {
 
 BLESmartKey.prototype.requestDevice = function(uuid) {
     console.log('Execute : requestDevice');
-    // console.log('optionalServices UUID: ' + this.hashedUuid[uuid].serviceUuid);
 
     return navigator.bluetooth.requestDevice({
         acceptAllDevices: false,
@@ -82,15 +79,11 @@ BLESmartKey.prototype.connectGATT = function(uuid) {
     }
     this.hashedUuidLastConnected = uuid;
 
-    // console.log("serviceUuid: " + this.hashedUuid[uuid].serviceUuid);
-    // console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
-
     console.log('Execute : connect');
 
     return this.bluetoothDevice.gatt.connect()
         .then(server => {
             console.log('Execute : getPrimaryService');
-            console.log('this.hashedUuid[uuid].serviceUuid' + this.hashedUuid[uuid].serviceUuid);
             return server.getPrimaryService(this.hashedUuid[uuid].serviceUuid);
         })
         .then(service => {
@@ -99,7 +92,6 @@ BLESmartKey.prototype.connectGATT = function(uuid) {
         })
         .then(characteristic => {
             this.dataCharacteristic = characteristic;
-            console.log(characteristic);
             // this.dataCharacteristic.addEventListener('characteristicvaluechanged', this.dataChanged(this, uuid));
             this.onConnectGATT(uuid);
         })
@@ -116,9 +108,6 @@ BLESmartKey.prototype.dataChanged = function(self, uuid) {
 };
 
 BLESmartKey.prototype.read = function(uuid) {
-    console.log('serviceUuid: ' + this.hashedUuid[uuid].serviceUuid);
-    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
-
     return (this.scan(uuid))
         .then( () => {
             return this.connectGATT(uuid);
@@ -134,9 +123,6 @@ BLESmartKey.prototype.read = function(uuid) {
 };
 
 BLESmartKey.prototype.write = function(uuid, array_value) {
-    console.log('serviceUuid: ' + this.hashedUuid[uuid].serviceUuid);
-    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
-
     return (this.scan(uuid))
         .then( () => {
             return this.connectGATT(uuid);
