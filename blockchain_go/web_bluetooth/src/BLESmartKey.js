@@ -54,7 +54,7 @@ BLESmartKey.prototype.scan = function(uuid) {
 
 BLESmartKey.prototype.requestDevice = function(uuid) {
     console.log('Execute : requestDevice');
-    console.log('UUID: ' + this.hashedUuid[uuid].serviceUuid);
+    // console.log('optionalServices UUID: ' + this.hashedUuid[uuid].serviceUuid);
 
     return navigator.bluetooth.requestDevice({
         acceptAllDevices: false,
@@ -82,14 +82,15 @@ BLESmartKey.prototype.connectGATT = function(uuid) {
     }
     this.hashedUuidLastConnected = uuid;
 
-    console.log("serviceUuid: " + this.hashedUuid[uuid].serviceUuid);
-    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
+    // console.log("serviceUuid: " + this.hashedUuid[uuid].serviceUuid);
+    // console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
 
     console.log('Execute : connect');
 
     return this.bluetoothDevice.gatt.connect()
         .then(server => {
             console.log('Execute : getPrimaryService');
+            console.log('this.hashedUuid[uuid].serviceUuid' + this.hashedUuid[uuid].serviceUuid);
             return server.getPrimaryService(this.hashedUuid[uuid].serviceUuid);
         })
         .then(service => {
@@ -115,6 +116,9 @@ BLESmartKey.prototype.dataChanged = function(self, uuid) {
 };
 
 BLESmartKey.prototype.read = function(uuid) {
+    console.log('serviceUuid: ' + this.hashedUuid[uuid].serviceUuid);
+    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
+
     return (this.scan(uuid))
         .then( () => {
             return this.connectGATT(uuid);
@@ -130,17 +134,19 @@ BLESmartKey.prototype.read = function(uuid) {
 };
 
 BLESmartKey.prototype.write = function(uuid, array_value) {
+    console.log('serviceUuid: ' + this.hashedUuid[uuid].serviceUuid);
+    console.log("characteristicUuid: " + this.hashedUuid[uuid].characteristicUuid);
+
     return (this.scan(uuid))
         .then( () => {
             return this.connectGATT(uuid);
         })
         .then( () => {
             console.log('Execute : writeValue');
-            data = Uint8Array.from(array_value);
-            return this.dataCharacteristic.writeValue(data);
-        })
-        .then( () => {
-            this.onWrite(uuid);
+
+            let encoder = new TextEncoder('utf-8');
+            let userDescription = encoder.encode(array_value);
+            return this.dataCharacteristic.writeValue(userDescription);
         })
         .catch(error => {
             console.error('Error: ' + error);
