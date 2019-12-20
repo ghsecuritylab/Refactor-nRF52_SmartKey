@@ -7,7 +7,6 @@ Copyright 2019 Naoto Fujihiro
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv=”Cache-Control” content=”no-cache”>
     <title>Smart Key</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="BLESmartKey.js"></script>
@@ -18,6 +17,7 @@ Copyright 2019 Naoto Fujihiro
     <h1>Smart Key</h1>
 
     <button id="connect_button" class="button">Connect</button>
+    <button id="servo_button" class="button">Servo</button>
     <button id="reset_button" class="button">Reset</button>
 
     <div id="model_number"></div>
@@ -32,11 +32,14 @@ Copyright 2019 Naoto Fujihiro
     <button id="read_block_button">READ</button>
     <button id="write_block_button">WRITE</button>
 
-    <p>Public Key</p>
-    <textarea id="public_key" rows="2" cols="100"></textarea>
+    <p>Owner Public Key</p>
+    <textarea id="owner_public_key" rows="2" cols="100"></textarea>
     <br>
-    <button id="read_public_key_button">READ</button>
-    <button id="write_public_key_button">WRITE</button>
+    <button id="read_owner_public_key_button">READ</button>
+    <button id="write_owner_public_key_button">WRITE</button>
+
+    <p>Key Public Key</p>
+    <textarea id="key_public_key" rows="2" cols="100"></textarea>
 
     <p>Signature</p>
     <textarea id="signature" rows="2" cols="100"></textarea>
@@ -53,16 +56,19 @@ Copyright 2019 Naoto Fujihiro
 
 <script>
     let ble = new BLESmartKey();
+    let decoder_str = new TextDecoder('utf-8');
 
     // ボタンを押下した際のイベント登録
     document.getElementById('connect_button').addEventListener('click', function() {
-        ble.scan('ModelNumber')
+        ble.scan('Block')
+    });
+
+    document.getElementById('servo_button').addEventListener('click', function() {
+        ble.write('Block', "Servo");
     });
 
     document.getElementById('read_block_button').addEventListener('click', function() {
         ble.read('Block').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
-            // document.getElementById('block').innerHTML = decoder_str.decode(value);
             document.getElementById('block').value = decoder_str.decode(value);
         });
     });
@@ -70,19 +76,8 @@ Copyright 2019 Naoto Fujihiro
         ble.write('Block', document.getElementById('block').value);
     });
 
-    document.getElementById('read_public_key_button').addEventListener('click', function() {
-        ble.read('PublicKey').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
-            document.getElementById('public_key').value = decoder_str.decode(value);
-        });
-    });
-    document.getElementById('write_public_key_button').addEventListener('click', function() {
-        ble.write('PublicKey', document.getElementById('block').value);
-    });
-
     document.getElementById('read_signature_button').addEventListener('click', function() {
         ble.read('Signature').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
             document.getElementById('signature').value = decoder_str.decode(value);
         });
     });
@@ -92,7 +87,6 @@ Copyright 2019 Naoto Fujihiro
 
     document.getElementById('read_transactions_button').addEventListener('click', function() {
         ble.read('Transactions').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
             document.getElementById('transactions').value = decoder_str.decode(value);
         });
     });
@@ -127,15 +121,19 @@ Copyright 2019 Naoto Fujihiro
     // Scan後の処理
     ble.onScan = function(deviceName) {
         ble.read('ModelNumber').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
             document.getElementById('model_number').innerHTML = decoder_str.decode(value);
         });
         ble.read('Manufacturer').then( (value) => {
-            let decoder_str = new TextDecoder('utf-8');
             document.getElementById('manufacturer').innerHTML = decoder_str.decode(value);
         });
         ble.read('Battery').then( (value) => {
             document.getElementById('battery').innerHTML = value.getUint8(0);
+        });
+        ble.read('PublicKey').then( (value) => {
+            document.getElementById('key_public_key').innerHTML = decoder_str.decode(value);
+        });
+        ble.read('Block').then( (value) => {
+            document.getElementById('block').innerHTML = decoder_str.decode(value);
         });
     };
 
@@ -144,10 +142,12 @@ Copyright 2019 Naoto Fujihiro
         document.getElementById('manufacturer').innerHTML = "No Manufacturer";
         document.getElementById('battery').innerHTML = "0";
         document.getElementById('block').value = "";
-        document.getElementById('public_key').value = "";
+        document.getElementById('owner_public_key').value = "";
+        document.getElementById('key_public_key').value = "";
         document.getElementById('signature').value = "";
         document.getElementById('transactions').value = "";
     };
+
 </script>
 </body>
 </html>

@@ -3,12 +3,10 @@
 BLESmartKey.js
 ============================================================
 Web Bluetooth API Wrapper Library
-
 Copyright 2017 JellyWare Inc.
 Copyright 2019 Naoto Fujihiro
 http://jellyware.jp/
 This software is released under the MIT License.
-
 Web Bluetooth API
 https://webbluetoothcg.github.io/web-bluetooth/
 */
@@ -56,7 +54,7 @@ BLESmartKey.prototype.requestDevice = function(uuid) {
     return navigator.bluetooth.requestDevice({
         acceptAllDevices: false,
         filters: [{
-           name: ["SmartKey"]
+            name: ["SmartKey"]
         }],
         optionalServices: [this.hashedUuid[uuid].serviceUuid]})
         .then(device => {
