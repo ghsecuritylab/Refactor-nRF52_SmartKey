@@ -1,9 +1,9 @@
-PROJECT_NAME     := pwm_driver_pca10056
+PROJECT_NAME     := pwm_driver_nrf52840
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := ../../../../../..
-PROJ_DIR := ../../..
+SDK_ROOT := ../../../..
+PROJ_DIR := .
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
   LINKER_SCRIPT  := pwm_driver_gcc_nrf52.ld
@@ -53,6 +53,7 @@ SRC_FILES += \
 
 # Include folders common to all targets
 INC_FOLDERS += \
+  $(PROJ_DIR) \
   $(SDK_ROOT)/components \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/libraries/scheduler \
@@ -61,7 +62,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/strerror \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
   $(SDK_ROOT)/components/libraries/util \
-  ../config \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/ringbuf \
   $(SDK_ROOT)/modules/nrfx/hal \
@@ -169,7 +169,7 @@ flash: default
 erase:
 	nrfjprog -f nrf52 --eraseall
 
-SDK_CONFIG_FILE := ../config/sdk_config.h
+SDK_CONFIG_FILE := $(PROJ_DIR)/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)

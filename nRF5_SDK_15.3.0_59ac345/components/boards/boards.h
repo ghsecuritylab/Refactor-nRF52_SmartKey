@@ -81,6 +81,8 @@
   #include STRINGIFY(CUSTOM_BOARD_INC.h)
 #elif defined(BOARD_CUSTOM)
   #include "custom_board.h"
+#elif defined(BOARD_FEATHER_NRF52840_EXPRESS)
+  #include "feather_nrf52840_express.h"
 #else
 #error "Board is not defined"
 

@@ -512,8 +512,8 @@ static void bsp_evt_handler(bsp_event_t evt)
 
     switch (evt)
     {
-        // Button 1 - switch to the previous demo.
-        case BSP_EVENT_KEY_0:
+        // Button 2 - switch to the previous demo.
+        case BSP_EVENT_KEY_1:
             if (demo_idx > 0)
             {
                 --demo_idx;
@@ -524,8 +524,8 @@ static void bsp_evt_handler(bsp_event_t evt)
             }
             break;
 
-        // Button 2 - switch to the next demo.
-        case BSP_EVENT_KEY_1:
+        // Button 1 - switch to the next demo.
+        case BSP_EVENT_KEY_0:
             if (demo_idx < demo_idx_max)
             {
                 ++demo_idx;

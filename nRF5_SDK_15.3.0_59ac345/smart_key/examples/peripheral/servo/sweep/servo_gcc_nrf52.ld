@@ -39,18 +39,6 @@ SECTIONS
   .mem_section_dummy_rom :
   {
   }
-  .crypto_data :
-  {
-    PROVIDE(__start_crypto_data = .);
-    KEEP(*(SORT(.crypto_data*)))
-    PROVIDE(__stop_crypto_data = .);
-  } > FLASH
-    .nrf_queue :
-  {
-    PROVIDE(__start_nrf_queue = .);
-    KEEP(*(.nrf_queue))
-    PROVIDE(__stop_nrf_queue = .);
-  } > FLASH
   .log_const_data :
   {
     PROVIDE(__start_log_const_data = .);
