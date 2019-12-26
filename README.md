@@ -20,11 +20,7 @@ nRF52840を使用して作成した、スマートキー。
 
 1. Goをインストール
 
-2. ArduinoIDEをインストール
-
-バージョン: [ArduinoIDE 1.8.10](https://www.arduino.cc/en/main/software)
-
-3. Adafruit Feather nRF52840 Expressを使用。
+2. Adafruit Feather nRF52840 Expressを使用。
 
 nRF52840が搭載されているAdafruit社製のボードならば、ピン配置を適宜変更すれば、ソースコードをそのまま利用可能。
 
@@ -75,7 +71,7 @@ $ make
 $ cd ../../../../examples/crypto/nrf_crypto/ecdsa/pca10056/blank/armgcc/
 $ make
 
-// nRF52840に書き込む。
+// nRF52840に書き込む。(コマンドは、Makefileの下部に記載されている。)
 $ nrfjprog --eraseall
 $ nrfjprog --chiperase --program _build/nrf52840_xxaa.hex -f NRF52 -r
 ```
@@ -84,6 +80,7 @@ JLinkRTTViewer のソフトウェアを使用すると、実行結果を確認�
 
 [log](docs/JLinkRTTViewer-crypto_ecdsa.png)
 
+JLinkの入手は[こちら](https://www.segger.com/products/debug-probes/j-link/)から。 
 JLinkRTTViewerの入手は[こちら](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack)から。
 
 
@@ -93,5 +90,3 @@ JLinkRTTViewerの入手は[こちら](https://www.segger.com/downloads/jlink/#J-
 
 
 
-
- 
