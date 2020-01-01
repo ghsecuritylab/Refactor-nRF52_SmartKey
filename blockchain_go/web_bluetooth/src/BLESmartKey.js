@@ -40,21 +40,23 @@ BLESmartKey.prototype.setUuid = function(name, serviceUuid, characteristicUuid) 
     };
 };
 
-BLESmartKey.prototype.scan = function(uuid) {
-    return (this.bluetoothDevice ? Promise.resolve() : this.requestDevice(uuid))
+BLESmartKey.prototype.scan = function(uuid, deviceName) {
+    return (this.bluetoothDevice ? Promise.resolve() : this.requestDevice(uuid, deviceName))
         .catch(error => {
             console.error('Error: ' + error);
             this.onError(error);
         })
 };
 
-BLESmartKey.prototype.requestDevice = function(uuid) {
+BLESmartKey.prototype.requestDevice = function(uuid, deviceName) {
     console.log('Execute : requestDevice');
+
+    console.info("this.hashedUuid[uuid].serviceUuid", this.hashedUuid[uuid].serviceUuid);
 
     return navigator.bluetooth.requestDevice({
         acceptAllDevices: false,
         filters: [{
-            name: ["SmartKey"]
+            name: [deviceName]
         }],
         optionalServices: [this.hashedUuid[uuid].serviceUuid]})
         .then(device => {

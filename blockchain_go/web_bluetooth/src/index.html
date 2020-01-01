@@ -60,7 +60,8 @@ Copyright 2019 Naoto Fujihiro
 
     // ボタンを押下した際のイベント登録
     document.getElementById('connect_button').addEventListener('click', function() {
-        ble.scan('Block')
+        // ble.scan('Block')
+        ble.scan('ModelNumber', 'SmartKey');
     });
 
     document.getElementById('servo_button').addEventListener('click', function() {
@@ -113,9 +114,9 @@ Copyright 2019 Naoto Fujihiro
         ble.setUuid("Manufacturer", "0000180a-0000-1000-8000-00805f9b34fb", "00002a29-0000-1000-8000-00805f9b34fb");
         ble.setUuid("Battery", "0000180f-0000-1000-8000-00805f9b34fb", "00002a19-0000-1000-8000-00805f9b34fb");
         ble.setUuid("Block", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd1-ff5b-460a-a01d-238a2adec0f9");
-        ble.setUuid("PublicKey", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd2-ff5b-460a-a01d-238a2adec0f9");
-        ble.setUuid("Signature", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd3-ff5b-460a-a01d-238a2adec0f9");
-        ble.setUuid("Transactions", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd4-ff5b-460a-a01d-238a2adec0f9");
+        // ble.setUuid("PublicKey", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd2-ff5b-460a-a01d-238a2adec0f9");
+        // ble.setUuid("Signature", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd3-ff5b-460a-a01d-238a2adec0f9");
+        // ble.setUuid("Transactions", "779f6cd0-ff5b-460a-a01d-238a2adec0f9", "779f6cd4-ff5b-460a-a01d-238a2adec0f9");
     };
 
     // Scan後の処理
@@ -129,12 +130,12 @@ Copyright 2019 Naoto Fujihiro
         ble.read('Battery').then( (value) => {
             document.getElementById('battery').innerHTML = value.getUint8(0);
         });
-        ble.read('PublicKey').then( (value) => {
-            document.getElementById('key_public_key').innerHTML = decoder_str.decode(value);
-        });
-        ble.read('Block').then( (value) => {
-            document.getElementById('block').innerHTML = decoder_str.decode(value);
-        });
+        // ble.read('PublicKey').then( (value) => {
+        //     document.getElementById('key_public_key').innerHTML = decoder_str.decode(value);
+        // });
+        // ble.read('Block').then( (value) => {
+        //     document.getElementById('block').innerHTML = decoder_str.decode(value);
+        // });
     };
 
     ble.onReset = function() {
