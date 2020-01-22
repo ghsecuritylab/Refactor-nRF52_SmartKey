@@ -140,6 +140,36 @@ nRF52系のカスタムBootloaderを開発。
 
 OTA-DFUなどに対応可。
 
+## 書き込み手順
+
+### Bootloader
+
+``` Bootloader
+$ cd nRF52_Bootloader
+// ファームウェアを削除
+$ make BOARD=feather_nrf52840_express erase
+// Bootloaderをビルド
+$ make BOARD=feather_nrf52840_express all combinehex
+// Bootloaderを書き込み
+$ make BOARD=feather_nrf52840_express flash
+// SoftDeviceを書き込み
+$ make BOARD=feather_nrf52840_express sd
+```
+
+ビルドしたBootloaderは、`./nRF5_SDK_15.3.0_59ac345/components/softdevice/s140/hex/`に配置すれば良い。
+
+### ファームウェア
+
+``` Firmware
+$ cd nRF5_SDK_15.3.0_59ac345/smart_key/examples/smart_key
+// ファームウェアをビルド
+$ make
+// SoftDeviceを書き込み
+$ make flash_softdevice
+// ファームウェアを書き込み
+$ make flash
+```
+
 ## 開発例
 
 * `nRF5_SDK_15.3.0_59ac345` 内のソースコードをコンパイルする場合
