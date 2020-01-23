@@ -1,4 +1,2 @@
-# Compiler
-gcc-arm-none-eabi-7-2018-q2-update
-/nRF5_SDK_15.3.0_59ac345/examples/crypto/nrf_crypto/ecdsa/pca10056/blank/armgcc/_build/*
-/_build/*
+_build/*
+.vscode/*
