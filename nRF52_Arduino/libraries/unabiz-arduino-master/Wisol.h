@@ -23,8 +23,11 @@
 #else  //  ARDUINO
 #endif  //  ARDUINO
 
-const uint8_t WISOL_TX = PIN_SERIAL_RX;  //  Transmit port for For UnaBiz / Wisol Dev Kit
-const uint8_t WISOL_RX = PIN_SERIAL_TX;  //  Receive port for UnaBiz / Wisol Dev Kit
+#define PIN_SOFTWARE_SERIAL_RX    (6)
+#define PIN_SOFTWARE_SERIAL_TX    (5)
+
+const uint8_t WISOL_TX = PIN_SOFTWARE_SERIAL_RX;  //  Transmit port for For UnaBiz / Wisol Dev Kit
+const uint8_t WISOL_RX = PIN_SOFTWARE_SERIAL_TX;  //  Receive port for UnaBiz / Wisol Dev Kit
 //const uint8_t WISOL_TX = 4;  //  Transmit port for For UnaBiz / Wisol Dev Kit
 //const uint8_t WISOL_RX = 5;  //  Receive port for UnaBiz / Wisol Dev Kit
 const unsigned int WISOL_COMMAND_TIMEOUT = 60000;  //  Wait up to 60 seconds for response from SIGFOX module.  Includes downlink response.

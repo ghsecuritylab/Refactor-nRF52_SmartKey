@@ -19,8 +19,8 @@ void setup() {  //  Will be called only once.
   Serial.begin(115200);
   delay(4000);
   
-  Serial.printf("WISOL_TX: %u\n", PIN_SERIAL_RX);
-  Serial.printf("WISOL_RX: %u\n", PIN_SERIAL_TX);
+  Serial.printf("WISOL_TX: %u\n", WISOL_RX);
+  Serial.printf("WISOL_RX: %u\n", WISOL_TX);
   
   //  pinMode(PIN_SERIAL_RX, OUTPUT);   digitalWrite(PIN_SERIAL_RX, LOW);
   //  pinMode(PIN_SERIAL_TX, OUTPUT);   digitalWrite(PIN_SERIAL_TX, LOW);
