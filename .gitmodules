@@ -1,6 +1,3 @@
-[submodule "nRF52_Arduino/hardware/SmartKey/nRF52"]
-	path = nRF52_Arduino/hardware/SmartKey/nRF52
-	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Arduino.git
 [submodule "nRF52_Bootloader"]
 	path = nRF52_Bootloader
 	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
@@ -13,3 +10,6 @@
 [submodule "nRF5_SDK_15.3.0_59ac345/external/micro-ecc/micro-ecc"]
 	path = nRF5_SDK_15.3.0_59ac345/external/micro-ecc/micro-ecc
 	url = git@github.com:kmackay/micro-ecc.git
+[submodule "nRF52_Arduino/hardware/SmartKey/nrf52"]
+	path = nRF52_Arduino/hardware/SmartKey/nrf52
+	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
