@@ -146,14 +146,14 @@ OTA-DFUなどに対応可。
 
 ``` Bootloader
 $ cd nRF52_Bootloader
-// ファームウェアを削除
-$ make BOARD=feather_nrf52840_express erase
 // Bootloaderをビルド
 $ make BOARD=feather_nrf52840_express all combinehex
-// Bootloaderを書き込み
-$ make BOARD=feather_nrf52840_express flash
+// ファームウェアを削除
+$ make BOARD=feather_nrf52840_express erase
 // SoftDeviceを書き込み
 $ make BOARD=feather_nrf52840_express sd
+// Bootloaderを書き込み
+$ make BOARD=feather_nrf52840_express flash
 ```
 
 ビルドしたBootloaderは、`./nRF5_SDK_15.3.0_59ac345/components/softdevice/s140/hex/`に配置すれば良い。
