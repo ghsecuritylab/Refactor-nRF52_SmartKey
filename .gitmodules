@@ -12,4 +12,4 @@
 	url = git@github.com:kmackay/micro-ecc.git
 [submodule "nRF52_Arduino/hardware/SmartKey/nrf52"]
 	path = nRF52_Arduino/hardware/SmartKey/nrf52
-	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Bootloader.git
+	url = git@github.com:NaotoFujihiro/Adafruit_nRF52_Arduino.git
