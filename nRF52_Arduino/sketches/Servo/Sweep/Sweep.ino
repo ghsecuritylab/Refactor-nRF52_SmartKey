@@ -9,13 +9,15 @@
 
 #include <Servo.h>
 
+#define PIN_SERVO     PIN_A4
+
 Servo myservo;  // create servo object to control a servo
 // twelve servo objects can be created on most boards
 
 int pos = 0;    // variable to store the servo position
 
 void setup() {
-  myservo.attach(PIN_A4);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(PIN_SERVO);  // attaches the servo on pin 9 to the servo object
 }
 
 void loop() {
